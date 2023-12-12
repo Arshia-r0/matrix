@@ -6,15 +6,21 @@ using Vector2d = std::vector<std::vector<int>>;
 
 class Matrix {
 private:
+    std::size_t row, col;
+    Vector2d _matrix;
     Vector2d fixJagged(Vector2d& m);
 
 public:
-    std::size_t row, col;
-    Vector2d _matrix;
 
     Matrix(Vector2d m) {
         _matrix = fixJagged(m);
     }
+
+    Matrix& setMatrix(Vector2d& m);
+    Matrix& setMatrix(Matrix& M);
+    Vector2d getMatrix() const;
+    std::size_t getRow() const;
+    std::size_t getCol() const;
 
     Matrix transpose();
     Matrix& operator=(const Matrix& m);

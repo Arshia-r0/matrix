@@ -25,7 +25,7 @@ Matrix& Matrix::operator=(const Matrix& m) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Matrix& m) {
-    for(auto i : m._matrix) {
+    for(auto i : m.getMatrix()) {
         for(auto j : i) {
             out << j << " ";
         }
@@ -36,12 +36,12 @@ std::ostream& operator<<(std::ostream& out, const Matrix& m) {
 }
 
 Matrix operator*(const Matrix& m1, const Matrix& m2) {
-    Vector2d answer(m1.row, std::vector<int>(m2.col));
-    if(m1.col == m2.row) {
-        for(std::size_t i = 0; i < m1.row; i++) {
-            for(std::size_t j = 0; j < m1.col; j++) {
-                for(std::size_t k = 0; k < m2.col; k++) {
-                    answer[i][k] += m1._matrix[i][j] * m2._matrix[j][k];
+    Vector2d answer(m1.getRow(), std::vector<int>(m2.getCol()));
+    if(m1.getCol() == m2.getRow()) {
+        for(std::size_t i = 0; i < m1.getRow(); i++) {
+            for(std::size_t j = 0; j < m1.getCol(); j++) {
+                for(std::size_t k = 0; k < m2.getCol(); k++) {
+                    answer[i][k] += m1.getMatrix()[i][j] * m2.getMatrix()[j][k];
                 }
             }
         }
@@ -50,11 +50,11 @@ Matrix operator*(const Matrix& m1, const Matrix& m2) {
 }
 
 Matrix operator+(const Matrix& m1, const Matrix& m2) {
-    Vector2d answer(m1.row, std::vector<int>(m2.col));
-    if(m1.row == m2.row && m1.col == m2.col) {
-        for(std::size_t i = 0; i < m1.row; i++) {
-            for(std::size_t j = 0; j < m1.col; j++) {
-                answer[i][j] = m1._matrix[i][j] + m2._matrix[i][j];
+    Vector2d answer(m1.getRow(), std::vector<int>(m2.getCol()));
+    if(m1.getRow() == m2.getRow() && m1.getCol() == m2.getCol()) {
+        for(std::size_t i = 0; i < m1.getRow(); i++) {
+            for(std::size_t j = 0; j < m1.getCol(); j++) {
+                answer[i][j] = m1.getMatrix()[i][j] + m2.getMatrix()[i][j];
             }
             
         }
@@ -62,11 +62,11 @@ Matrix operator+(const Matrix& m1, const Matrix& m2) {
     return answer;
 }
 Matrix operator-(const Matrix& m1, const Matrix& m2) {
-    Vector2d answer(m1.row, std::vector<int>(m2.col));
-    if(m1.row == m2.row && m1.col == m2.col) {
-        for(std::size_t i = 0; i < m1.row; i++) {
-            for(std::size_t j = 0; j < m1.col; j++) {
-                answer[i][j] = m1._matrix[i][j] - m2._matrix[i][j];
+    Vector2d answer(m1.getRow(), std::vector<int>(m2.getCol()));
+    if(m1.getRow() == m2.getRow() && m1.getCol() == m2.getCol()) {
+        for(std::size_t i = 0; i < m1.getRow(); i++) {
+            for(std::size_t j = 0; j < m1.getCol(); j++) {
+                answer[i][j] = m1.getMatrix()[i][j] - m2.getMatrix()[i][j];
             }
             
         }
@@ -107,4 +107,18 @@ Matrix Matrix::transpose() {
         }
     }
     return answer;
+}
+
+Vector2d Matrix::getMatrix() const { return _matrix; }
+std::size_t Matrix::getRow() const { return row; }
+std::size_t Matrix::getCol() const { return col; }
+
+Matrix& Matrix::setMatrix(Vector2d& m) { 
+    _matrix = fixJagged(m);
+    return *this;
+}
+
+Matrix& Matrix::setMatrix(Matrix& M) {
+    _matrix = M.getMatrix();
+    return *this;
 }
