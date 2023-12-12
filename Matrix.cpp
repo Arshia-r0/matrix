@@ -3,11 +3,12 @@
 #include <vector>
 #include <algorithm>
 
-Vector2d Matrix::fixJagged(Vector2d m) {
+Vector2d Matrix::fixJagged(Vector2d& m) {
     row = m.size();
     std::vector<std::size_t> l;
     for(auto i : m) { l.push_back(i.size()); }
     col = *std::max_element(l.begin(), l.end());
+    if(std::equal(l.begin()+1, l.end(), l.begin())) return m;
     for(auto it = m.begin(); it != m.end(); it++) {
         if(it->size() < col) {
             for(std::size_t j = (it->size())+1; j != col+1; j++) {

@@ -6,7 +6,7 @@ using Vector2d = std::vector<std::vector<int>>;
 
 class Matrix {
 private:
-    Vector2d fixJagged(Vector2d m);
+    Vector2d fixJagged(Vector2d& m);
 
 public:
     std::size_t row, col;
