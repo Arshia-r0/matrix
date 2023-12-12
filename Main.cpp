@@ -17,5 +17,6 @@ int main() {
     Matrix a5 = a1 - a2;
     a5 += a1;
     a3 -= a4;
+    a1 = -a1.transpose();
     std::cout << a1 << a2 << a3 << a4 << a5;
 }
