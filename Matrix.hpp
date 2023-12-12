@@ -5,13 +5,15 @@
 using Vector2d = std::vector<std::vector<int>>;
 
 class Matrix {
-public:
-    Vector2d _matrix;
-    std::size_t row, col;
+private:
+    Vector2d fixJagged(Vector2d m);
 
-    Matrix(Vector2d m) : _matrix{m} {
-        row = _matrix.size();
-        col = _matrix[0].size();
+public:
+    std::size_t row, col;
+    Vector2d _matrix;
+
+    Matrix(Vector2d m) {
+        _matrix = fixJagged(m);
     }
 
     Matrix transpose();
@@ -19,7 +21,7 @@ public:
     Matrix& operator*=(const Matrix& m2);
     Matrix& operator+=(const Matrix& m2);
     Matrix& operator-=(const Matrix& m2);
-    Matrix& operator-();
+    Matrix operator-();
 };
 
 Matrix operator*(const Matrix& m1, const Matrix& m2);
