@@ -2,9 +2,9 @@
 #include <vector>
 #include <ostream>
 
-template <typename T>
+using Vector2d = std::vector<std::vector<int>>;
+
 class Matrix {
-using Vector2d = std::vector<std::vector<T>>;
 private:
     std::size_t row, col;
     Vector2d _matrix;
@@ -31,9 +31,7 @@ public:
     Matrix operator-();
 };
 
-template <typename T>
-Matrix<T> operator*(const Matrix<T>& m1, const Matrix<T>& m2);
-template <typename T>
-Matrix<T> operator+(const Matrix<T>& m1, const Matrix<T>& m2);
-Matrix<T> operator-(const Matrix<T>& m1, const Matrix<T>& m2);
+Matrix operator*(const Matrix& m1, const Matrix& m2);
+Matrix operator+(const Matrix& m1, const Matrix& m2);
+Matrix operator-(const Matrix& m1, const Matrix& m2);
 std::ostream& operator<<(std::ostream& out, const Matrix& m);
