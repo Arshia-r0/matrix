@@ -109,9 +109,9 @@ Matrix Matrix::transpose() {
     return answer;
 }
 
-Vector2d Matrix::getMatrix() const { return _matrix; }
-std::size_t Matrix::getRow() const { return row; }
-std::size_t Matrix::getCol() const { return col; }
+auto& Matrix::getMatrix() const { return _matrix; }
+auto& Matrix::getRow() const { return row; }
+auto& Matrix::getCol() const { return col; }
 
 Matrix& Matrix::setMatrix(Vector2d& m) { 
     _matrix = fixJagged(m);

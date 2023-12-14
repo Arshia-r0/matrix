@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main() {
-    Matrix a1{{
+    Matrix<int> a1{{
         {1, 2},
         {1, 0, 0},
         {9, 0, 9}
